@@ -96,7 +96,7 @@ button {
 <body>
 
 <!-- 🎵 Background Music -->
-<audio autoplay loop>
+<audio autoplay loop muted id="bgMusic"></audio>
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
@@ -182,6 +182,11 @@ setInterval(() => {
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
 }, 300);
+const music = document.getElementById("bgMusic");
+document.body.addEventListener("click", () => {
+    music.muted = false;
+    music.play();
+});
 </script>
 
 </body>
