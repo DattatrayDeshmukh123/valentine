@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Rose Day 🌹</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #b11226, #ff5f7e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    color: white;
+}
+
+.card {
+    background: rgba(0,0,0,0.35);
+    padding: 28px;
+    border-radius: 25px;
+    text-align: center;
+    width: 90%;
+    max-width: 360px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    animation: pop 0.9s ease;
+    z-index: 2;
+}
+
+@keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* 🌹 Photo reveal */
+.photo {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 4px solid #ffd1dc;
+    object-fit: cover;
+    margin-bottom: 18px;
+    opacity: 0;
+    transform: scale(0.7);
+    animation: photoReveal 2s ease forwards;
+}
+
+@keyframes photoReveal {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 🔊 Tap hint */
+.tap-hint {
+    position: fixed;
+    bottom: 18px;
+    background: rgba(0,0,0,0.4);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    animation: pulse 1.5s infinite;
+    z-index: 3;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* 🌹 Floating roses */
+.rose {
+    position: absolute;
+    bottom: -20px;
+    animation: float 7s linear infinite;
+    opacity: 0.9;
+}
+
+@keyframes float {
+    from { transform: translateY(0) scale(1); opacity: 1; }
+    to { transform: translateY(-110vh) scale(1.4); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background music -->
+<audio id="bgMusic" loop muted>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="tap-hint" id="tapHint">🔊 Tap anywhere to feel the romance</div>
+
+<div class="card">
+    <img src="her-photo.jpg" class="photo" alt="My Rose">
+
+    <h2>Happy Rose Day 🌹</h2>
+
+    <p>
+        SHIVANI,<br><br>
+        If I had a rose for every time you made me smile,<br>
+        I’d be walking through an endless garden.<br><br>
+        You are the most beautiful rose in my life —<br>
+        soft, strong, and forever mine.
+    </p>
+
+    <h3>— AMOL ❤️</h3>
+</div>
+
+<script>
+/* 🎵 Start music on first tap */
+const bgMusic = document.getElementById("bgMusic");
+const tapHint = document.getElementById("tapHint");
+
+document.addEventListener("click", () => {
+    bgMusic.muted = false;
+    bgMusic.play();
+    tapHint.style.display = "none";
+}, { once: true });
+
+/* 🌹 Floating roses */
+setInterval(() => {
+    const rose = document.createElement("div");
+    rose.className = "rose";
+    rose.innerHTML = "🌹";
+    rose.style.left = Math.random() * 100 + "vw";
+    rose.style.fontSize = (20 + Math.random() * 26) + "px";
+    document.body.appendChild(rose);
+    setTimeout(() => rose.remove(), 7000);
+}, 350);
+</script>
+
+</body>
+</html>
