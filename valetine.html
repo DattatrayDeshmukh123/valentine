@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Valentine ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff3b7f, #ff86b3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    color: white;
+}
+
+.card {
+    background: rgba(255, 80, 140, 0.96);
+    padding: 25px;
+    border-radius: 25px;
+    text-align: center;
+    width: 90%;
+    max-width: 360px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    animation: pop 0.8s ease;
+    z-index: 2;
+}
+
+@keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ✨ Photo fade + zoom */
+.photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid white;
+    object-fit: cover;
+    margin-bottom: 15px;
+    opacity: 0;
+    transform: scale(0.7);
+    animation: photoReveal 1.8s ease forwards;
+}
+
+@keyframes photoReveal {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 8px;
+}
+
+.yes { background: #ff1e6e; color: white; }
+.no { background: #333; color: white; position: absolute; }
+
+/* 🔊 Tap hint */
+.tap-hint {
+    position: fixed;
+    bottom: 20px;
+    background: rgba(0,0,0,0.3);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    animation: pulse 1.5s infinite;
+    z-index: 3;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+/* ❤️ Hearts + ✨ sparkles */
+.heart, .sparkle {
+    position: absolute;
+    bottom: -20px;
+    animation: float 6s linear infinite;
+    opacity: 0.9;
+}
+
+.sparkle {
+    color: #fff6b3;
+}
+
+@keyframes float {
+    from { transform: translateY(0) scale(1); opacity: 1; }
+    to { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+}
+
+/* 🎊 Confetti */
+.confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    animation: fall 3s linear infinite;
+}
+
+@keyframes fall {
+    from { transform: translateY(-100vh); }
+    to { transform: translateY(100vh); }
+}
+
+/* 💭 Whisper screen */
+.whisper {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 2s ease;
+    z-index: 5;
+}
+.whisper.show {
+    opacity: 1;
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Music -->
+<audio id="bgMusic" loop muted>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="tap-hint" id="tapHint">🔊 Tap anywhere to feel the magic</div>
+
+<div class="card" id="card">
+    <img src="her-photo.jpg" class="photo" alt="My Love">
+
+    <h2 id="typing"></h2>
+
+    <p>
+        Every smile of yours feels like home.<br>
+        Every moment with you feels like magic.
+        <br><br>
+        Today… I have one important question.
+    </p>
+
+    <h3>Will you be my Valentine? ❤️</h3>
+
+    <button class="yes" onclick="yesClicked()">Yes 💕</button>
+    <button class="no" id="noBtn">No 💔</button>
+</div>
+
+<div class="whisper" id="whisper">
+    I love you, Shivani…<br>
+    Always. 💖
+</div>
+
+<script>
+/* 🎵 Music start */
+const bgMusic = document.getElementById("bgMusic");
+const tapHint = document.getElementById("tapHint");
+
+document.addEventListener("click", () => {
+    bgMusic.muted = false;
+    bgMusic.play();
+    tapHint.style.display = "none";
+}, { once: true });
+
+/* ⌨️ Typing */
+const text = "Hey Shivani 💖";
+let i = 0;
+const typing = document.getElementById("typing");
+(function typeEffect(){
+    if (i < text.length) {
+        typing.innerHTML += text.charAt(i++);
+        setTimeout(typeEffect, 80);
+    }
+})();
+
+/* 🏃 NO button runs */
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", () => {
+    noBtn.style.left = Math.random() * 80 + "vw";
+    noBtn.style.top = Math.random() * 80 + "vh";
+});
+
+/* ❤️ YES click */
+function yesClicked() {
+    document.getElementById("card").innerHTML = `
+        <h2>🎉 Congratulations 🎉</h2>
+        <p>
+            💖 <strong>The Valentine of Amol</strong> 💖<br><br>
+            I choose you today.<br>
+            I’ll choose you tomorrow.<br>
+            And I’ll keep choosing you — always.
+        </p>
+        <h3>Happy Valentine’s Day ❤️</h3>
+        <h4>— Amol ❤️ Shivani —</h4>
+    `;
+    launchConfetti();
+    setTimeout(showWhisper, 3500);
+}
+
+/* 🎊 Confetti */
+function launchConfetti() {
+    for (let i = 0; i < 80; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "vw";
+        c.style.background =
+            ["#fff", "#ffeb3b", "#ff4081"][Math.floor(Math.random()*3)];
+        c.style.animationDuration = (2 + Math.random()*2) + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
+    }
+}
+
+/* 💕 Hearts + sparkles */
+setInterval(() => {
+    const el = document.createElement("div");
+    el.className = Math.random() > 0.6 ? "sparkle" : "heart";
+    el.innerHTML = el.className === "sparkle" ? "✨" : "❤️";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.fontSize = (16 + Math.random()*22) + "px";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 6000);
+}, 250);
+
+/* 💭 Whisper */
+function showWhisper() {
+    document.getElementById("whisper").classList.add("show");
+}
+</script>
+
+</body>
+</html>
