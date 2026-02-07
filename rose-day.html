@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Rose Day 🌹</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(135deg,#b11226,#ff5f7e);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Poppins;
+  color:white;
+  overflow:hidden;
+}
+.card{
+  background:rgba(0,0,0,0.35);
+  padding:25px;
+  border-radius:25px;
+  text-align:center;
+  width:90%;
+  max-width:360px;
+}
+img{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  border:4px solid pink;
+  object-fit:cover;
+}
+.rose{
+  position:absolute;
+  bottom:-20px;
+  animation:float 7s linear infinite;
+}
+@keyframes float{
+  to{transform:translateY(-110vh);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop muted>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <img src="her-photo.jpg">
+  <h2>Happy Rose Day 🌹</h2>
+  <p>
+    SHIVANI DARLING,<br><br>
+    You are the most beautiful rose in my life.
+    Every petal reminds me of your smile.
+  </p>
+  <h3>— AMOL ❤️</h3>
+</div>
+
+<script>
+document.addEventListener("click",()=>{
+  const m=document.getElementById("music");
+  m.muted=false;
+  m.play();
+},{once:true});
+
+setInterval(()=>{
+  const r=document.createElement("div");
+  r.className="rose";
+  r.innerHTML="🌹";
+  r.style.left=Math.random()*100+"vw";
+  r.style.fontSize=20+Math.random()*25+"px";
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),7000);
+},300);
+</script>
+
+</body>
+</html>
